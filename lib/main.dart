@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -94,11 +93,11 @@ class UserTile extends StatelessWidget {
   final String description;
 
   const UserTile({
-    Key? key,
+    super.key,
     required this.name,
     required this.code,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +123,7 @@ class UserTile extends StatelessWidget {
 }
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  const SearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +141,7 @@ class SearchBar extends StatelessWidget {
 
 // Pantalla de Configuración
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -158,41 +157,46 @@ class SettingsPage extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(8.0),
-        children: const [
+        children: [
           ListTile(
-            leading: Icon(Icons.person, size: 40),
-            title: Text('configuracion'),
-            subtitle: Text('Daniel'),
-            trailing: ElevatedButton(
-              onPressed: null,
-              child: Text('perfil'),
+            leading: const Icon(Icons.person, size: 40),
+            title: const Text('configuracion'),
+            subtitle: const Text('Daniel'),
+            trailing: FloatingActionButton(
+              mini: true,
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Perfil')),
+                );
+              },
+              child: const Icon(Icons.person),
             ),
           ),
-          SettingsOptionTile(
+          const SettingsOptionTile(
             icon: Icons.notifications,
             title: 'notificaciones',
             description:
                 'Description duis aute irure dolor in reprehenderit in voluptate velit.',
           ),
-          SettingsOptionTile(
+          const SettingsOptionTile(
             icon: Icons.person_outline,
             title: 'personalizacion',
             description:
                 'Description duis aute irure dolor in reprehenderit in voluptate velit.',
           ),
-          SettingsOptionTile(
+          const SettingsOptionTile(
             icon: Icons.lock,
             title: 'privacidad',
             description:
                 'Description duis aute irure dolor in reprehenderit in voluptate velit.',
           ),
-          SettingsOptionTile(
+          const SettingsOptionTile(
             icon: Icons.language,
             title: 'idioma',
             description:
                 'Description duis aute irure dolor in reprehenderit in voluptate velit.',
           ),
-          SettingsOptionTile(
+          const SettingsOptionTile(
             icon: Icons.update,
             title: 'actualizaciones',
             description:
@@ -211,11 +215,11 @@ class SettingsOptionTile extends StatelessWidget {
   final String description;
 
   const SettingsOptionTile({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -223,14 +227,14 @@ class SettingsOptionTile extends StatelessWidget {
       leading: Icon(icon, size: 40),
       title: Text(title),
       subtitle: Text(description),
-      trailing: Icon(Icons.arrow_forward),
+      trailing: const Icon(Icons.arrow_forward),
     );
   }
 }
 
 // Pantalla de añadir contacto
 class AddContactPage extends StatelessWidget {
-  const AddContactPage({Key? key}) : super(key: key);
+  const AddContactPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -250,7 +254,7 @@ class AddContactPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'NUMERO',
+              'NÚMERO',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -277,7 +281,7 @@ class AddContactPage extends StatelessWidget {
 class ChatPage extends StatefulWidget {
   final String userName; // El nombre del usuario con quien se está chateando.
 
-  const ChatPage({Key? key, required this.userName}) : super(key: key);
+  const ChatPage({super.key, required this.userName});
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -357,8 +361,8 @@ class ChatBubble extends StatelessWidget {
   final String message;
   final bool isSentByMe;
 
-  const ChatBubble({Key? key, required this.message, required this.isSentByMe})
-      : super(key: key);
+  const ChatBubble(
+      {super.key, required this.message, required this.isSentByMe});
 
   @override
   Widget build(BuildContext context) {

@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                   UserTile(
                     name: 'Julian',
                     code: '123',
-                    description: 'chatea conmigo.',
+                    description: 'Click para chatear conmigo.',
                   ),
                 ],
               ),

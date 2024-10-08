@@ -41,11 +41,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCN1kK0gclpGDEuzbRaArhFk6GSiFpOFgM',
-    appId: '1:736208100966:android:5080cf0f2b2805d18717a7',
-    messagingSenderId: '736208100966',
-    projectId: 'chat-uber-361a7',
-    storageBucket: 'chat-uber-361a7.appspot.com',
+    apiKey: 'AIzaSyDJW67BbOTgBI2uKDgO8nQ3dO0SkLD94go',
+    appId: '1:572152134465:android:739ab2918ac9ba079e7fc0',
+    messagingSenderId: '572152134465',
+    projectId: 'nuevo-timogram',
+    storageBucket: 'nuevo-timogram.appspot.com',
   );
 
   static const FirebaseOptions web = FirebaseOptions(
