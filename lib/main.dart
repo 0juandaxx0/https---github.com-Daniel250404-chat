@@ -34,7 +34,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UberChat'),
+        title: const Text('Timogram'),
+        backgroundColor: Colors.purple, // Cambiar el color de fondo del AppBar
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -54,19 +55,32 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0), // Aumentar el padding
         child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start, // Alinear el contenido a la izquierda
           children: [
             const SearchBar(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20), // Espaciado más amplio
+            const Text(
+              'Usuarios',
+              style: TextStyle(
+                fontSize: 24, // Tamaño de fuente más grande
+                fontWeight: FontWeight.bold, // Fuente en negrita
+                color: Colors.purple, // Color de texto
+              ),
+            ),
+            const SizedBox(height: 10), // Espaciado entre el título y la lista
             Expanded(
               child: ListView(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10), // Padding vertical
                 children: const [
                   UserTile(
                     name: 'Julian',
                     code: '123',
-                    description: 'chatea conmigo.',
-                  ),
+                    description: 'Chatea conmigo.',
+                  )
                 ],
               ),
             ),
@@ -81,7 +95,11 @@ class HomePage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const AddContactPage()),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          size: 30,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -101,24 +119,39 @@ class UserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: Colors.grey[300],
-        child: const Icon(Icons.person, color: Colors.white),
-      ),
-      title: Text('$name ($code)'),
-      subtitle: Text(description),
-      trailing: const Icon(Icons.more_vert),
-      onTap: () {
-        // Cuando se toca el ListTile, navega a la pantalla de chat.
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatPage(userName: name),
+    return Card(
+        elevation: 2, // Sombra para dar profundidad
+        margin: const EdgeInsets.symmetric(vertical: 5), // Espaciado vertical
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.purple[100], // Color de fondo del avatar
+            child: const Icon(Icons.person,
+                color: Colors.white), // Icono de usuario
           ),
-        );
-      },
-    );
+          title: Text(
+            '$name ($code)',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold, // Negrita para el nombre
+            ),
+          ),
+          subtitle: Text(
+            description,
+            style: const TextStyle(
+              color: Colors.grey, // Color gris para la descripción
+            ),
+          ),
+          trailing:
+              const Icon(Icons.more_vert, color: Colors.purple), // Icono de más
+          onTap: () {
+            // Cuando se toca el ListTile, navega a la pantalla de chat.
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatPage(userName: name),
+              ),
+            );
+          },
+        ));
   }
 }
 
@@ -127,13 +160,24 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.search),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+    return Padding(
+      padding:
+          const EdgeInsets.symmetric(horizontal: 16.0), // Espaciado horizontal
+      child: TextField(
+        decoration: InputDecoration(
+          filled: true, // Fondo relleno
+          fillColor: Colors.purple[50], // Color de fondo del campo de texto
+          prefixIcon: const Icon(Icons.search,
+              color: Colors.purple), // Icono de búsqueda
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none, // Sin borde
+          ),
+          hintText: 'Buscar',
+          hintStyle: const TextStyle(
+              color: Colors.grey), // Color del texto de sugerencia
+          contentPadding: const EdgeInsets.all(16.0), // Padding interno
         ),
-        hintText: 'Buscar',
       ),
     );
   }
@@ -147,7 +191,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UberChat'),
+        title: const Text('Configuraciones de UberChat'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -158,49 +202,73 @@ class SettingsPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(8.0),
         children: [
-          ListTile(
-            leading: const Icon(Icons.person, size: 40),
-            title: const Text('configuracion'),
-            subtitle: const Text('Daniel'),
-            trailing: FloatingActionButton(
-              mini: true,
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Perfil')),
-                );
-              },
-              child: const Icon(Icons.person),
+          // Header de perfil
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.purple[50],
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                const CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.grey,
+                  child: Icon(Icons.person, size: 40, color: Colors.white),
+                ),
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Configuraciones',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const Text('Daniel', style: TextStyle(color: Colors.grey)),
+                  ],
+                ),
+                const Spacer(),
+                FloatingActionButton(
+                  mini: true,
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Perfil')),
+                    );
+                  },
+                  child: const Icon(Icons.person),
+                ),
+              ],
             ),
           ),
+          const SizedBox(
+              height: 10), // Espacio entre el encabezado y las opciones
           const SettingsOptionTile(
             icon: Icons.notifications,
-            title: 'notificaciones',
+            title: 'Notificaciones',
             description:
-                'Description duis aute irure dolor in reprehenderit in voluptate velit.',
+                'Configura las preferencias de notificación para la app.',
           ),
           const SettingsOptionTile(
             icon: Icons.person_outline,
-            title: 'personalizacion',
-            description:
-                'Description duis aute irure dolor in reprehenderit in voluptate velit.',
+            title: 'Personalización',
+            description: 'Ajusta la apariencia y el comportamiento de la app.',
           ),
           const SettingsOptionTile(
             icon: Icons.lock,
-            title: 'privacidad',
+            title: 'Privacidad',
             description:
-                'Description duis aute irure dolor in reprehenderit in voluptate velit.',
+                'Gestiona tus configuraciones de privacidad y seguridad.',
           ),
           const SettingsOptionTile(
             icon: Icons.language,
-            title: 'idioma',
-            description:
-                'Description duis aute irure dolor in reprehenderit in voluptate velit.',
+            title: 'Idioma',
+            description: 'Selecciona el idioma de la aplicación.',
           ),
           const SettingsOptionTile(
             icon: Icons.update,
-            title: 'actualizaciones',
-            description:
-                'Description duis aute irure dolor in reprehenderit in voluptate velit.',
+            title: 'Actualizaciones',
+            description: 'Mantente al tanto de las últimas actualizaciones.',
           ),
         ],
       ),
@@ -223,11 +291,31 @@ class SettingsOptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon, size: 40),
-      title: Text(title),
-      subtitle: Text(description),
-      trailing: const Icon(Icons.arrow_forward),
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(16.0), // Espaciado interno
+        leading: CircleAvatar(
+          radius: 24,
+          backgroundColor: Colors.purple[100], // Color de fondo
+          child: Icon(icon, size: 28, color: Colors.purple), // Icono
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        subtitle: Text(description),
+        trailing: const Icon(Icons.arrow_forward_ios), // Flecha hacia adelante
+        onTap: () {
+          // Acción al tocar el tile (puedes definir lo que hace)
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Acción para $title')),
+          );
+        },
+      ),
     );
   }
 }
@@ -257,18 +345,38 @@ class AddContactPage extends StatelessWidget {
               'NÚMERO',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 20, // Tamaño de fuente mayor
+                color: Colors.purple, // Color atractivo
               ),
             ),
             const SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(
-                labelText: 'Label',
-                hintText: 'Input',
+                labelText: 'Número de contacto',
+                hintText: 'Ingresa el número',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
+                prefixIcon: const Icon(Icons.phone), // Icono de teléfono
+                filled: true, // Fondo del campo
+                fillColor: Colors.purple[50], // Color de fondo suave
               ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Acción para añadir contacto
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Contacto añadido')),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple, // Color del botón
+                foregroundColor: Colors.white, // Color del texto del botón
+                padding: const EdgeInsets.symmetric(
+                    vertical: 12), // Padding del botón
+              ),
+              child: const Text('Añadir Contacto'), // Texto del botón
             ),
           ],
         ),
@@ -336,9 +444,15 @@ class _ChatPageState extends State<ChatPage> {
                     controller: _controller,
                     decoration: InputDecoration(
                       hintText: 'Escribe un mensaje...',
+                      filled: true, // Color de fondo del campo de texto
+                      fillColor: Colors.purple[50], // Color de fondo claro
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius:
+                            BorderRadius.circular(20), // Bordes redondeados
+                        borderSide: BorderSide.none, // Sin bordes visibles
                       ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 15),
                     ),
                   ),
                 ),
@@ -346,6 +460,7 @@ class _ChatPageState extends State<ChatPage> {
                   icon: const Icon(Icons.send),
                   onPressed:
                       _sendMessage, // Llamar a la función para enviar el mensaje.
+                  color: Colors.purple, // Color del ícono de enviar
                 ),
               ],
             ),
@@ -373,9 +488,22 @@ class ChatBubble extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         decoration: BoxDecoration(
           color: isSentByMe ? Colors.blue[100] : Colors.grey[300],
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(15), // Bordes más redondeados
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1), // Sombra sutil
+              blurRadius: 5,
+              offset: const Offset(0, 2), // Desplazamiento de la sombra
+            ),
+          ],
         ),
-        child: Text(message),
+        child: Text(
+          message,
+          style: TextStyle(
+            fontSize: 16, // Tamaño de fuente mayor
+            color: isSentByMe ? Colors.black : Colors.black87,
+          ),
+        ),
       ),
     );
   }
